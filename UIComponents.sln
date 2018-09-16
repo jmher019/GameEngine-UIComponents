@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UIComponents", "UIComponents\UIComponents.vcxproj", "{F2100171-974C-48A6-BE3D-054629D3E41E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Debug|x64.ActiveCfg = Debug|x64
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Debug|x64.Build.0 = Debug|x64
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Debug|x86.ActiveCfg = Debug|Win32
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Debug|x86.Build.0 = Debug|Win32
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Release|x64.ActiveCfg = Release|x64
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Release|x64.Build.0 = Release|x64
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Release|x86.ActiveCfg = Release|Win32
+		{F2100171-974C-48A6-BE3D-054629D3E41E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFDC1FAD-0473-458C-B6BA-12011F81AFB0}
+	EndGlobalSection
+EndGlobal
