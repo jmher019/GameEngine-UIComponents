@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -18,6 +18,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\include\BMPGenerator.hpp" />
+    <ClInclude Include="..\src\include\FontSystem.hpp" />
+    <ClInclude Include="..\src\include\LogMessage.hpp" />
+    <ClInclude Include="..\src\include\LogRendererSystem.hpp" />
+    <ClInclude Include="..\src\include\TextRenderingSystem.hpp" />
+    <ClInclude Include="..\src\include\Timer.hpp" />
+    <ClInclude Include="..\src\include\UIElement.hpp" />
+    <ClInclude Include="..\src\include\UIState.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\sources\BMPGenerator.cpp" />
+    <ClCompile Include="..\src\sources\FontSystem.cpp" />
+    <ClCompile Include="..\src\sources\LogMessage.cpp" />
+    <ClCompile Include="..\src\sources\LogRendererSystem.cpp" />
+    <ClCompile Include="..\src\sources\TextRenderingSystem.cpp" />
+    <ClCompile Include="..\src\sources\Timer.cpp" />
+    <ClCompile Include="..\src\sources\UIElement.cpp" />
+    <ClCompile Include="..\src\sources\UIState.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{F2100171-974C-48A6-BE3D-054629D3E41E}</ProjectGuid>
@@ -26,26 +46,26 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -76,7 +96,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\include;$(ProjectDir)..\lib\event-system\include;$(ProjectDir)..\lib\glad\include;$(ProjectDir)..\lib\scene-graph\include;$(ProjectDir)..\lib\glm-0.9.9.0\glm;$(ProjectDir)..\lib\FreeType\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SceneGraph.lib;EventSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\scene-graph\lib\x86\Debug;$(ProjectDir)..\lib\event-system\lib\x86\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)..\Debug\* $(ProjectDir)..\dist\lib\x86\Debug</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -84,7 +112,15 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\include;$(ProjectDir)..\lib\event-system\include;$(ProjectDir)..\lib\glad\include;$(ProjectDir)..\lib\scene-graph\include;$(ProjectDir)..\lib\glm-0.9.9.0\glm;$(ProjectDir)..\lib\FreeType\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>SceneGraph.lib;EventSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\scene-graph\lib\x64\Debug;$(ProjectDir)..\lib\event-system\lib\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)..\x64\Debug\* $(ProjectDir)..\dist\lib\x64\Debug</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -94,11 +130,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\include;$(ProjectDir)..\lib\event-system\include;$(ProjectDir)..\lib\glad\include;$(ProjectDir)..\lib\scene-graph\include;$(ProjectDir)..\lib\glm-0.9.9.0\glm;$(ProjectDir)..\lib\FreeType\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SceneGraph.lib;EventSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\scene-graph\lib\x86\Release;$(ProjectDir)..\lib\event-system\lib\x86\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)..\Release\* $(ProjectDir)..\dist\lib\x86\Release</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -108,14 +150,18 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\include;$(ProjectDir)..\lib\event-system\include;$(ProjectDir)..\lib\glad\include;$(ProjectDir)..\lib\scene-graph\include;$(ProjectDir)..\lib\glm-0.9.9.0\glm;$(ProjectDir)..\lib\FreeType\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SceneGraph.lib;EventSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\lib\scene-graph\lib\x64\Release;$(ProjectDir)..\lib\event-system\lib\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)..\x64\Release\* $(ProjectDir)..\dist\lib\x64\Release</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
