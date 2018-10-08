@@ -1,0 +1,6 @@
+[submodule "lib/event-system"]
+	path = lib/event-system
+	url = https://github.com/jmher019/GameEngine-EventSystem.git
+[submodule "lib/scene-graph"]
+	path = lib/scene-graph
+	url = https://github.com/jmher019/GameEngine-SceneGraph.git
