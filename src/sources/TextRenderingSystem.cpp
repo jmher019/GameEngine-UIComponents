@@ -233,9 +233,11 @@ void TextRenderingSystem::renderText(
             GLfloat maxY = y;
 
             startIt = it;
+            GLboolean encounteredNewLineCharacter = false;
             for (; it != state.getText().end(); ++it) {
                 if (*it == '\n') {
                     ++it;
+                    encounteredNewLineCharacter = true;
                     break;
                 }
 
@@ -274,7 +276,7 @@ void TextRenderingSystem::renderText(
             
             minYs.push_back(minY);
             textSizes.push_back(vec2(maxX - minX, maxY - minY));
-            texts.push_back(string(startIt, (*it) == '\n' ? it - 1 : it));
+            texts.push_back(string(startIt, encounteredNewLineCharacter ? it - 1 : it));
         }
 
 
@@ -373,10 +375,12 @@ void TextRenderingSystem::renderText(
                 GLfloat maxX = x;
                 GLfloat maxY = y;
 
+                GLboolean encounteredNewLineCharacter = false;
                 startIt = it;
                 for (; it != text.end(); ++it) {
                     if (*it == '\n') {
                         ++it;
+                        encounteredNewLineCharacter = true;
                         break;
                     }
 
@@ -415,7 +419,7 @@ void TextRenderingSystem::renderText(
 
                 minYs.push_back(minY);
                 textSizes.push_back(vec2(maxX - minX, maxY - minY));
-                texts.push_back(string(startIt, (*it) == '\n' ? it - 1 : it));
+                texts.push_back(string(startIt, encounteredNewLineCharacter ? it - 1 : it));
                 textColors.push_back(logMessage.getTextColor());
             }
         }
