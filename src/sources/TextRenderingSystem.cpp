@@ -274,7 +274,7 @@ void TextRenderingSystem::renderText(
             
             minYs.push_back(minY);
             textSizes.push_back(vec2(maxX - minX, maxY - minY));
-            texts.push_back(string(startIt, it));
+            texts.push_back(string(startIt, (*it) == '\n' ? it - 1 : it));
         }
 
 
@@ -415,7 +415,7 @@ void TextRenderingSystem::renderText(
 
                 minYs.push_back(minY);
                 textSizes.push_back(vec2(maxX - minX, maxY - minY));
-                texts.push_back(string(startIt, it));
+                texts.push_back(string(startIt, (*it) == '\n' ? it - 1 : it));
                 textColors.push_back(logMessage.getTextColor());
             }
         }
