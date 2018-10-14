@@ -454,7 +454,7 @@ void TextRenderingSystem::renderText(
             case TextVerticalAlign::CENTER: {}
             case TextVerticalAlign::TOP: {
                 GLfloat fullHeight = static_cast<GLfloat>(texts.size()) * lineSpacing;
-                int i = 0;
+                int i = static_cast<int>(texts.size()) - 1;
 
                 if (fullHeight > state.getHeight()) {
                     i = static_cast<int>(state.getHeight() / lineSpacing) - 1;
