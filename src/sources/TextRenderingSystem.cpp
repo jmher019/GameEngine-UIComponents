@@ -454,13 +454,13 @@ void TextRenderingSystem::renderText(
             case TextVerticalAlign::CENTER: {}
             case TextVerticalAlign::TOP: {
                 GLfloat fullHeight = static_cast<GLfloat>(texts.size()) * lineSpacing;
-                int i = static_cast<int>(texts.size()) - 1;
-
+                
+                int finalSize = static_cast<int>(texts.size());
                 if (fullHeight > state.getHeight()) {
-                    i = static_cast<int>(state.getHeight() / lineSpacing) - 1;
+                    finalSize = static_cast<int>(state.getHeight() / lineSpacing);
                 }
                 
-                for (; i >= 0; --i, ++lines) {
+                for (int i = 0; i < finalSize; ++i, ++lines) {
                     const GLfloat& minY = minYs[i];
                     const vec2& textSize = textSizes[i];
                     const string& text = texts[i];
