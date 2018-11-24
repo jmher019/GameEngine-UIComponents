@@ -243,3 +243,15 @@ const shared_ptr<Shader>& UIElement::getTextShader(void) const noexcept {
 const UIState& UIElement::getState(void) const noexcept {
     return this->state;
 }
+
+GLboolean UIElement::isWithinElement(const GLfloat& x, const GLfloat& y) const noexcept {
+    const GLfloat width = state.getWidth();
+    const GLfloat height = state.getHeight();
+    GLfloat minX = -width * 0.5f;
+    GLfloat maxX = width * 0.5f;
+    GLfloat minY = -height * 0.5f;
+    GLfloat maxY = height * 0.5f;
+
+    const vec2 point = vec2(transform.getInverseMatrix() * vec4(x, y, 0.f, 1.f));
+    return point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY;
+}

@@ -97,6 +97,8 @@ public:
     const shared_ptr<Shader>& getTextShader(void) const noexcept;
 
     const UIState& getState(void) const noexcept;
+
+    GLboolean isWithinElement(const GLfloat& x, const GLfloat& y) const noexcept;
 };
 
 #endif // !UI_ELEMENT_HPP
