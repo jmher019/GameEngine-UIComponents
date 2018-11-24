@@ -26,6 +26,7 @@
     <ClInclude Include="..\src\include\TextRenderingSystem.hpp" />
     <ClInclude Include="..\src\include\Timer.hpp" />
     <ClInclude Include="..\src\include\UIElement.hpp" />
+    <ClInclude Include="..\src\include\UISceneGraph.hpp" />
     <ClInclude Include="..\src\include\UIState.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +37,7 @@
     <ClCompile Include="..\src\sources\TextRenderingSystem.cpp" />
     <ClCompile Include="..\src\sources\Timer.cpp" />
     <ClCompile Include="..\src\sources\UIElement.cpp" />
+    <ClCompile Include="..\src\sources\UISceneGraph.cpp" />
     <ClCompile Include="..\src\sources\UIState.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
