@@ -1,6 +1,6 @@
 #include <LogRendererSystem.hpp>
 
-unique_ptr<UIElement> LogRendererSystem::logDisplayer = nullptr;
+shared_ptr<UIElement> LogRendererSystem::logDisplayer = nullptr;
 vec4 LogRendererSystem::logNormalColor = vec4(0.26f, 0.91f, 0.96f, 0.5f);
 vec4 LogRendererSystem::logWarningColor = vec4(0.95f, 0.93f, 0.16f, 0.5f);
 vec4 LogRendererSystem::logErrorColor = vec4(0.8f, 0.f, 0.f, 0.5f);
@@ -9,16 +9,16 @@ bool LogRendererSystem::initialized = false;
 
 void LogRendererSystem::startUp(void) {
     if (!initialized) {
-        LogRendererSystem::logDisplayer = make_unique<UIElement>();
-        LogRendererSystem::logDisplayer->setWidth(400.f);
-        LogRendererSystem::logDisplayer->setHeight(400.f);
-        LogRendererSystem::logDisplayer->setWordWrap(true);
-        LogRendererSystem::logDisplayer->setZIndex(1e6f);
-        LogRendererSystem::logDisplayer->setFillColor(vec4(0.f, 0.f, 0.f, 0.4f));
-        LogRendererSystem::logDisplayer->setFontKey(FontKey::ARIAL);
-        LogRendererSystem::logDisplayer->setFontSize(14.f);
-        LogRendererSystem::logDisplayer->translate(200.f, 200.f);
-        LogRendererSystem::logDisplayer->setTextVerticalAlign(TextVerticalAlign::TOP);
+        LogRendererSystem::logDisplayer = make_shared<UIElement>();
+        LogRendererSystem::logDisplayer->getState().setWidth(400.f);
+        LogRendererSystem::logDisplayer->getState().setHeight(400.f);
+        LogRendererSystem::logDisplayer->getState().setWordWrap(true);
+        LogRendererSystem::logDisplayer->getState().setZIndex(1e6f);
+        LogRendererSystem::logDisplayer->getState().setFillColor(vec4(0.f, 0.f, 0.f, 0.4f));
+        LogRendererSystem::logDisplayer->getState().setFontKey(FontKey::ARIAL);
+        LogRendererSystem::logDisplayer->getState().setFontSize(14.f);
+        UIUtils::translate(LogRendererSystem::logDisplayer, 200.f, 200.f);
+        LogRendererSystem::logDisplayer->getState().setTextVerticalAlign(TextVerticalAlign::TOP);
         initialized = true;
     }
 }

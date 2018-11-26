@@ -28,6 +28,7 @@
     <ClInclude Include="..\src\include\UIElement.hpp" />
     <ClInclude Include="..\src\include\UISceneGraph.hpp" />
     <ClInclude Include="..\src\include\UIState.hpp" />
+    <ClInclude Include="..\src\include\UIUtils.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sources\BMPGenerator.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="..\src\sources\UIElement.cpp" />
     <ClCompile Include="..\src\sources\UISceneGraph.cpp" />
     <ClCompile Include="..\src\sources\UIState.cpp" />
+    <ClCompile Include="..\src\sources\UIUtils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

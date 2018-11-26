@@ -5,8 +5,6 @@
 #include <Shader.hpp>
 #include <TextRenderingSystem.hpp>
 
-#include <glm\gtc\type_ptr.hpp>
-
 class UIElement : public SceneObject {
 private:
     GLuint VAO = 0;
@@ -18,6 +16,11 @@ private:
     void initialize(void) noexcept;
 
     void deallocate(void) noexcept;
+
+public:
+    struct ON_ZINDEX_CHANGE {
+        const shared_ptr<UIElement>& element;
+    };
 
 public:
     UIElement(const string& name = string(""), const Transform& transform = Transform());
@@ -34,59 +37,9 @@ public:
 
     void draw(const mat4& ProjectionViewMatrix) const override;
 
-    void translate(const float& tX, const float& tY) noexcept;
-
-    void rotate(const float& degrees) noexcept;
-
-    void orbit(const float& degrees) noexcept;
-
     const GLuint& getVAO(void) const noexcept;
 
     const GLuint& getVBO(void) const noexcept;
-
-    void setWidth(const GLfloat& width) noexcept;
-
-    const GLfloat& getWidth() const noexcept;
-
-    void setHeight(const GLfloat& height) noexcept;
-
-    const GLfloat& getHeight() const noexcept;
-
-    void setFillColor(const vec4& fillColor) noexcept;
-
-    const vec4& getFillColor(void) const noexcept;
-
-    void setTextColor(const vec4& textColor) noexcept;
-
-    const vec4& getTextColor(void) const noexcept;
-
-    void setText(const string& text) noexcept;
-
-    const string& getText(void) const noexcept;
-
-    void setFontKey(const FontKey& key) noexcept;
-
-    const FontKey& getFontKey(void) const noexcept;
-
-    void setFontSize(const GLfloat& fontSize) noexcept;
-
-    const GLfloat& getFontSize(void) const noexcept;
-
-    void setTextAlign(const TextAlign& textAlign) noexcept;
-
-    const TextAlign& getTextAlign(void) const noexcept;
-
-    void setTextVerticalAlign(const TextVerticalAlign& textVerticalAlign) noexcept;
-
-    const TextVerticalAlign& getTextVerticalAlign(void) const noexcept;
-
-    void setWordWrap(const bool& wordWrap) noexcept;
-
-    const bool& getWordWrap(void) const noexcept;
-
-    void setZIndex(const GLfloat& zIndex) noexcept;
-
-    const GLfloat& getZIndex(void) const noexcept;
 
     void setShader(const shared_ptr<Shader>& shader) noexcept;
 
@@ -96,9 +49,13 @@ public:
 
     const shared_ptr<Shader>& getTextShader(void) const noexcept;
 
-    const UIState& getState(void) const noexcept;
+    UIState& getState(void) noexcept;
 
     GLboolean isWithinElement(const GLfloat& x, const GLfloat& y) const noexcept;
+
+    unsigned long subscribeToOnZindexChange(function<void(const ON_ZINDEX_CHANGE&)> callable);
+
+    bool operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UIElement>& rhs) const;
 };
 
 #endif // !UI_ELEMENT_HPP

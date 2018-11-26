@@ -82,43 +82,7 @@ void UIElement::deallocate() noexcept {
 }
 
 void UIElement::draw(const mat4& ProjectionViewMatrix) const {
-    if (shader != nullptr) {
-        mat4 model = transform.getMatrix();
-
-        shader->use();
-        shader->setMat4("PVM", value_ptr(ProjectionViewMatrix * model));
-        shader->setMat4("model", value_ptr(model));
-        shader->setVec4("fillColor", value_ptr(state.getFillColor()));
-
-        glBindVertexArray(getVAO());
-        vector<Vertex> vertices = state.getUIVertices();
-        glBindBuffer(GL_ARRAY_BUFFER, getVBO());
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)vertices.size());
-        glBindVertexArray(0);
-
-        TextRenderingSystem::renderText(
-            textShader,
-            state,
-            ProjectionViewMatrix,
-            model
-        );
-    }
-
     SceneObject::draw(ProjectionViewMatrix);
-}
-
-void UIElement::translate(const float& tX, const float& tY) noexcept {
-    SceneObject::translate(tX, tY, 0.f);
-}
-
-void UIElement::rotate(const float& degrees) noexcept {
-    SceneObject::rotate(0.f, 0.f, degrees);
-}
-
-void UIElement::orbit(const float& degrees) noexcept {
-    SceneObject::orbit(0.f, 0.f, degrees);
 }
 
 const GLuint& UIElement::getVAO(void) const noexcept {
@@ -127,101 +91,6 @@ const GLuint& UIElement::getVAO(void) const noexcept {
 
 const GLuint& UIElement::getVBO(void) const noexcept {
     return VBO;
-}
-
-void UIElement::setWidth(const GLfloat& width) noexcept {
-    state.setWidth(width);
-}
-
-const GLfloat& UIElement::getWidth(void) const noexcept {
-    return state.getWidth();
-}
-
-void UIElement::setHeight(const GLfloat& height) noexcept {
-    state.setHeight(height);
-}
-
-const GLfloat& UIElement::getHeight(void) const noexcept {
-    return state.getHeight();
-}
-
-void UIElement::setFillColor(const vec4& fillColor) noexcept {
-    state.setFillColor(fillColor);
-}
-
-const vec4& UIElement::getFillColor(void) const noexcept {
-    return state.getFillColor();
-}
-
-void UIElement::setTextColor(const vec4& textColor) noexcept {
-    this->state.setTextColor(textColor);
-}
-
-const vec4& UIElement::getTextColor(void) const noexcept {
-    return this->state.getTextColor();
-}
-
-void UIElement::setText(const string& text) noexcept {
-    this->state.setText(text);
-}
-
-const string& UIElement::getText(void) const noexcept {
-    return this->state.getText();
-}
-
-void UIElement::setFontKey(const FontKey& key) noexcept {
-    this->state.setFontKey(key);
-}
-
-const FontKey& UIElement::getFontKey(void) const noexcept {
-    return this->state.getFontKey();
-}
-
-void UIElement::setFontSize(const GLfloat& fontSize) noexcept {
-    this->state.setFontSize(fontSize);
-}
-
-const GLfloat& UIElement::getFontSize(void) const noexcept {
-    return this->state.getFontSize();
-}
-
-void UIElement::setTextAlign(const TextAlign& textAlign) noexcept {
-    this->state.setTextAlign(textAlign);
-}
-
-const TextAlign& UIElement::getTextAlign(void) const noexcept {
-    return this->state.getTextAlign();
-}
-
-void UIElement::setTextVerticalAlign(const TextVerticalAlign& textVerticalAlign) noexcept {
-    this->state.setTextVerticalAlign(textVerticalAlign);
-}
-
-const TextVerticalAlign& UIElement::getTextVerticalAlign(void) const noexcept {
-    return this->state.getTextVerticalAlign();
-}
-
-void UIElement::setWordWrap(const bool& wordWrap) noexcept {
-    this->state.setWordWrap(wordWrap);
-}
-
-const bool& UIElement::getWordWrap(void) const noexcept {
-    return this->state.getWordWrap();
-}
-
-void UIElement::setZIndex(const GLfloat& zIndex) noexcept {
-    this->state.setZIndex(zIndex);
-
-    for (auto& child : children) {
-        UIElement* uiElement = nullptr;
-        if ((uiElement = dynamic_cast<UIElement*>(child.get())) != nullptr) {
-            uiElement->setZIndex(zIndex);
-        }
-    }
-}
-
-const GLfloat& UIElement::getZIndex(void) const noexcept {
-    return this->state.getZIndex();
 }
 
 void UIElement::setShader(const shared_ptr<Shader>& shader) noexcept {
@@ -240,7 +109,7 @@ const shared_ptr<Shader>& UIElement::getTextShader(void) const noexcept {
     return this->textShader;
 }
 
-const UIState& UIElement::getState(void) const noexcept {
+UIState& UIElement::getState(void) noexcept {
     return this->state;
 }
 
@@ -254,4 +123,12 @@ GLboolean UIElement::isWithinElement(const GLfloat& x, const GLfloat& y) const n
 
     const vec2 point = vec2(transform.getInverseMatrix() * vec4(x, y, 0.f, 1.f));
     return point.x >= minX && point.x <= maxX && point.y >= minY && point.y <= maxY;
+}
+
+unsigned long UIElement::subscribeToOnZindexChange(function<void(const ON_ZINDEX_CHANGE&)> callable) {
+    return getManager().subscribe<ON_ZINDEX_CHANGE>(callable);
+}
+
+bool UIElement::operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UIElement>& rhs) const {
+    return lhs->getState().getZIndex() < rhs->getState().getZIndex();
 }

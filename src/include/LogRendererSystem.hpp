@@ -3,11 +3,12 @@
 
 #include <Timer.hpp>
 #include <UIElement.hpp>
+#include <UIUtils.hpp>
 #include <LogMessage.hpp>
 
 class LogRendererSystem {
 private:
-    static unique_ptr<UIElement> logDisplayer;
+    static shared_ptr<UIElement> logDisplayer;
     static vec4 logNormalColor;
     static vec4 logWarningColor;
     static vec4 logErrorColor;
