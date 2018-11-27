@@ -10,7 +10,7 @@ void main()
     vec4 sampled = vec4(1.f, 1.f, 1.f, texture(text, TexCoords).r);
 	gl_FragDepth = gl_FragCoord.z;
 	if (sampled.w == 0.f) {
-		gl_FragDepth = 0.f;
+		gl_FragDepth = 1.f;
 	}
     FragColor = textColor * sampled;
 } 
