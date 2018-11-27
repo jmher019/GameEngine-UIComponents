@@ -7,6 +7,9 @@ uniform vec4 textColor;
 
 void main()
 {    
-    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
+    vec4 sampled = vec4(1.f, 1.f, 1.f, texture(text, TexCoords).r);
+	if (sampled.w == 0.f) {
+		gl_FragCoord.z = 0.f;
+	}
     FragColor = textColor * sampled;
 } 
