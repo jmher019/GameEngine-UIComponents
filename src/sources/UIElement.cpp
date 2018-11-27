@@ -130,5 +130,9 @@ unsigned long UIElement::subscribeToOnZindexChange(function<void(const ON_ZINDEX
 }
 
 bool UIElement::operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UIElement>& rhs) const {
+    if (lhs->getState().getZIndex() == rhs->getState().getZIndex()) {
+        return lhs.get() < rhs.get();
+    }
+
     return lhs->getState().getZIndex() < rhs->getState().getZIndex();
 }
