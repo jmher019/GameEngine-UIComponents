@@ -16,22 +16,6 @@ public:
 
     void draw(void) const noexcept override;
 
-    const shared_ptr<Camera>& getCamera(void) const noexcept = delete;
-
-    void getFov(void) const noexcept = delete;
-
-    void getNearZ(void) const noexcept = delete;
-
-    void getFarZ(void) const noexcept = delete;
-
-    void setCamera(const shared_ptr<Camera>& camera) noexcept = delete;
-
-    void setFov(const float& fov) noexcept = delete;
-
-    void setNearZ(const float& nearZ) noexcept = delete;
-
-    void setFarZ(const float& farZ) noexcept = delete;
-
     void handleChildAppended(const UIElement::ON_CHILD_APPENDED& e) noexcept;
 
     void handleClick(const double& x, const double& y);

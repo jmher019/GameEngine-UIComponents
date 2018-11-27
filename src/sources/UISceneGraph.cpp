@@ -52,7 +52,7 @@ void UISceneGraph::handleChildAppended(const UIElement::ON_CHILD_APPENDED& e) no
 
 void UISceneGraph::handleClick(const double& x, const double& y) {
     for (const shared_ptr<UIElement>& element : orderedElements) {
-        if (element->isWithinElement(x, y)) {
+        if (element->isWithinElement(static_cast<GLfloat>(x), static_cast<GLfloat>(y))) {
             element->onClick(x, y);
             break;
         }
