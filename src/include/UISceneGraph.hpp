@@ -33,6 +33,8 @@ public:
     void setFarZ(const float& farZ) noexcept = delete;
 
     void handleChildAppended(const UIElement::ON_CHILD_APPENDED& e) noexcept;
+
+    void handleClick(const double& x, const double& y);
 };
 
 #endif // !UI_SCENE_GRAPH_HPP

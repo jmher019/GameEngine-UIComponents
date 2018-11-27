@@ -129,10 +129,24 @@ unsigned long UIElement::subscribeToOnZindexChange(function<void(const ON_ZINDEX
     return getManager().subscribe<ON_ZINDEX_CHANGE>(callable);
 }
 
+unsigned long UIElement::subscribeToOnClick(function<void(const ON_CLICK&)> callable) {
+    return getManager().subscribe<ON_CLICK>(callable);
+}
+
 bool UIElement::operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UIElement>& rhs) const {
     if (lhs->getState().getZIndex() == rhs->getState().getZIndex()) {
         return lhs.get() < rhs.get();
     }
 
     return lhs->getState().getZIndex() < rhs->getState().getZIndex();
+}
+
+void UIElement::onClick(const double& x, const double& y) noexcept {
+    ON_CLICK payload = {
+        this,
+        x,
+        y
+    };
+
+    getManager().emit(payload);
 }

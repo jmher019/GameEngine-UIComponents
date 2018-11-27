@@ -22,6 +22,12 @@ public:
         const shared_ptr<UIElement>& element;
     };
 
+    struct ON_CLICK {
+        UIElement const* element;
+        const double& x;
+        const double& y;
+    };
+
 public:
     UIElement(const string& name = string(""), const Transform& transform = Transform());
 
@@ -55,7 +61,11 @@ public:
 
     unsigned long subscribeToOnZindexChange(function<void(const ON_ZINDEX_CHANGE&)> callable);
 
+    unsigned long subscribeToOnClick(function<void(const ON_CLICK&)> callable);
+
     bool operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UIElement>& rhs) const;
+
+    void onClick(const double& x, const double& y) noexcept;
 };
 
 #endif // !UI_ELEMENT_HPP

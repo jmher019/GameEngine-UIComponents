@@ -49,3 +49,12 @@ void UISceneGraph::handleChildAppended(const UIElement::ON_CHILD_APPENDED& e) no
 
     orderedElements.insert(child);
 }
+
+void UISceneGraph::handleClick(const double& x, const double& y) {
+    for (const shared_ptr<UIElement>& element : orderedElements) {
+        if (element->isWithinElement(x, y)) {
+            element->onClick(x, y);
+            break;
+        }
+    }
+}
