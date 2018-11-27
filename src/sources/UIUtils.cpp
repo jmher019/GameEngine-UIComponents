@@ -52,6 +52,13 @@ void UIUtils::draw(const shared_ptr<UIElement>& element, const mat4& ProjectionV
     if (element->getShader() != nullptr) {
         mat4 model = element->getTransform().getMatrix();
 
+        TextRenderingSystem::renderText(
+            element->getTextShader(),
+            element->getState(),
+            ProjectionViewMatrix,
+            model
+        );
+
         element->getShader()->use();
         element->getShader()->setMat4("PVM", value_ptr(ProjectionViewMatrix * model));
         element->getShader()->setMat4("model", value_ptr(model));
@@ -64,13 +71,6 @@ void UIUtils::draw(const shared_ptr<UIElement>& element, const mat4& ProjectionV
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDrawArrays(GL_TRIANGLES, 0, (GLsizei)vertices.size());
         glBindVertexArray(0);
-
-        TextRenderingSystem::renderText(
-            element->getTextShader(),
-            element->getState(),
-            ProjectionViewMatrix,
-            model
-        );
     }
 }
 

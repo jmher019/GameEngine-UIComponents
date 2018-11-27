@@ -138,7 +138,7 @@ bool UIElement::operator()(const shared_ptr<UIElement>& lhs, const shared_ptr<UI
         return lhs.get() < rhs.get();
     }
 
-    return lhs->getState().getZIndex() < rhs->getState().getZIndex();
+    return lhs->getState().getZIndex() > rhs->getState().getZIndex();
 }
 
 void UIElement::onClick(const double& x, const double& y) noexcept {
